@@ -1,11 +1,6 @@
-
-<p align="left">
-  <a href="" target="blank"><img src="https://img.icons8.com/color/344/ultra-ball.png" width="200" alt="Pokedex" /></a>
-</p>
-
-<p align="center">
-  <a href="" target="blank"><img src="https://img.icons8.com/color/344/pokedex.png" width="200" alt="Pokedex" /></a>
-</p>
+<!-- <p><img align="right" src="https://img.icons8.com/color/344/ultra-ball.png" width="100" alt="Pokedex" /></p> -->
+<!-- <p><img align="right" src="https://img.icons8.com/color/344/pokedex.png" width="100" alt="Pokedex" /></p> -->
+<p><img align="right" src="https://img.icons8.com/color/344/meowth.png" width="100" alt="Pokedex" /></p>
 
 ## Description
 
