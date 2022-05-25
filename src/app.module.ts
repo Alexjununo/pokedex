@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { PokemonModule } from './pokemons/pokemon.module';
+import { ConfigModule } from '@nestjs/config';
+import configuration from './config/configuration';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    PokemonModule,
+    ConfigModule.forRoot({
+      load: [configuration],
+    }),
+  ],
 })
 export class AppModule {}
