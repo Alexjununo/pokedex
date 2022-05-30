@@ -1,16 +1,13 @@
 import { Controller, Get, Param } from '@nestjs/common';
+import { Pokemon } from './interfaces/pokemon.interface';
 import { PokemonService } from './pokemon.service'
 
 @Controller('pokemons')
 export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}
-  @Get()
-  findAll() {
-    return 'TODOSSSS';
-  }
 
   @Get(':pokemon')
-  getPokemon(@Param('pokemon') pokemon: string): any {
+  getPokemon(@Param('pokemon') pokemon: string): Promise<Pokemon> {
     return this.pokemonService.getPokemon(pokemon);
   }
 }

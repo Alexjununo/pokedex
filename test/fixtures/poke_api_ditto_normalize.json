@@ -1,0 +1,21 @@
+{
+	"id": 132,
+	"height": 3,
+	"weight": 40,
+	"name": "ditto",
+	"location_area_encounters": "https://pokeapi.co/api/v2/pokemon/132/encounters",
+	"species": {
+		"name": "ditto",
+		"url": "https://pokeapi.co/api/v2/pokemon-species/132/"
+	},
+	"abilities": [
+		{
+			"name": "limber",
+			"url": "https://pokeapi.co/api/v2/ability/7/"
+		},
+		{
+			"name": "imposter",
+			"url": "https://pokeapi.co/api/v2/ability/150/"
+		}
+	]
+}

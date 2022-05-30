@@ -1,13 +1,11 @@
 import { PokeApi } from './poke.client';
 import pokeApiDittoFixture from '../../test/fixtures/poke_api_ditto.json';
+import pokeApiDittoNormalizeFixture from '../../test/fixtures/poke_api_ditto_normalize.json';
 import * as POKEUtil from '../utils/request';
 
 jest.mock('../utils/request');
 
 describe('PokeApi client', () => {
-  // const MockedRequestClass = POKEUtil.Request as jest.Mocked<
-  //   typeof POKEUtil.Request
-  // >;
   const mockedRequest = new POKEUtil.Request() as jest.Mocked<POKEUtil.Request>;
 
   it('should return pokemon Ditto from the Poke service', async () => {
@@ -18,6 +16,6 @@ describe('PokeApi client', () => {
     const pokeApi = new PokeApi(mockedRequest);
     const response = await pokeApi.fetchPokemon('ditto');
 
-    expect(response).toEqual(pokeApiDittoFixture);
+    expect(response).toEqual(pokeApiDittoNormalizeFixture);
   });
 });

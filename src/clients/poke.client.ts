@@ -1,4 +1,5 @@
 import { InternalError } from '../utils/errors/internal-error';
+import { Pokemon } from '../pokemons/interfaces/pokemon.interface';
 import * as POKEUtil from '../utils/request';
 
 export class ClientRequestError extends InternalError {
@@ -15,14 +16,27 @@ export class PokeApiResponseError extends InternalError {
   }
 }
 
+
 export class PokeApi {
   constructor(protected request = new POKEUtil.Request()) {}
 
-  public async fetchPokemon(pokemon: string) {
-    try {
-      const response = await this.request.get(`/pokemon/${pokemon}`);
+  private normalizeResponse (pokemon: any) {
+    return {
+      'id': pokemon.id,
+      'height': pokemon.height,
+      'weight': pokemon.weight,
+      'name': pokemon.name,
+      'location_area_encounters': pokemon.location_area_encounters,
+      'species': pokemon.species,
+      'abilities': pokemon.abilities.map(({ ability }) => ability),
+    };
+  }
 
-      return response.data;
+  public async fetchPokemon(pokemon: string): Promise<Pokemon> {
+    try {
+      const response: any = await this.request.get(`/pokemon/${pokemon}`);
+
+      return this.normalizeResponse(response.data);
     } catch (error: any) {
       if (POKEUtil.Request.isRequestError(error)) {
         throw new PokeApiResponseError(
