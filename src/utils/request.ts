@@ -4,12 +4,9 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
 } from 'axios';
-import config from '../config/configuration';
-
-const settings = config().api;
 
 const instance: AxiosInstance = axios.create({
-  baseURL: settings.apiUrl,
+  baseURL: 'https://pokeapi.co/api/v2',
   transformRequest: [
     (data) => {
       return JSON.stringify(data);

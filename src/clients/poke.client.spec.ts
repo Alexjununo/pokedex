@@ -8,7 +8,7 @@ jest.mock('../utils/request');
 describe('PokeApi client', () => {
   const mockedRequest = new POKEUtil.Request() as jest.Mocked<POKEUtil.Request>;
 
-  it('should return pokemon Ditto from the Poke service', async () => {
+  it('should return the normalized pokemon Ditto from the Poke service', async () => {
     mockedRequest.get.mockResolvedValue({
       data: pokeApiDittoFixture,
     } as POKEUtil.Response);
