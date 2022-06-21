@@ -2,31 +2,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PokeApi } from '../clients/poke.client';
 import { PokemonController } from './pokemon.controller';
 import { PokemonService } from './pokemon.service';
-
-const equalResponse = {
-  "id": 132,
-  "height": 3,
-  "weight": 40,
-  "name": "ditto",
-  "location_area_encounters": "https://pokeapi.co/api/v2/pokemon/132/encounters",
-  "species": {
-    "name": "ditto",
-    "url": "https://pokeapi.co/api/v2/pokemon-species/132/"
-  },
-  "abilities": [
-    {
-      "name": "limber",
-      "url": "https://pokeapi.co/api/v2/ability/7/"
-    },
-    {
-      "name": "imposter",
-      "url": "https://pokeapi.co/api/v2/ability/150/"
-    }
-  ]
-}
+import pokeApiDittoNormalizeFixture from '../../test/fixtures/poke_api_ditto_normalize.json';
 
 describe('AppController', () => {
   let pokemonController: PokemonController;
+  let pokemonService: PokemonService;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -35,11 +15,16 @@ describe('AppController', () => {
     }).compile();
 
     pokemonController = app.get<PokemonController>(PokemonController);
+    pokemonService = app.get<PokemonService>(PokemonService);
   });
   
   it('should return a Ditto json', async () => {
+    jest
+      .spyOn(pokemonService, 'getPokemon')
+      .mockImplementation(() => Promise.resolve(pokeApiDittoNormalizeFixture));
+
     const response = await pokemonController.getPokemon('ditto');
 
-    expect(response).toEqual(equalResponse);
+    expect(response).toEqual(pokeApiDittoNormalizeFixture);
   });
 });

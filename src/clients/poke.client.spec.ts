@@ -1,20 +1,27 @@
 import { PokeApi } from './poke.client';
-import pokeApiDittoFixture from '../../test/fixtures/poke_api_ditto.json';
 import pokeApiDittoNormalizeFixture from '../../test/fixtures/poke_api_ditto_normalize.json';
-import * as POKEUtil from '../utils/request';
+import { Test, TestingModule } from '@nestjs/testing';
 
 jest.mock('../utils/request');
 
 describe('PokeApi client', () => {
-  const mockedRequest = new POKEUtil.Request() as jest.Mocked<POKEUtil.Request>;
+  let api: PokeApi;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [PokeApi],
+    }).compile();
+
+    api = module.get<PokeApi>(PokeApi);
+  });
 
   it('should return the normalized pokemon Ditto from the Poke service', async () => {
-    mockedRequest.get.mockResolvedValue({
-      data: pokeApiDittoFixture,
-    } as POKEUtil.Response);
 
-    const pokeApi = new PokeApi(mockedRequest);
-    const response = await pokeApi.fetchPokemon('ditto');
+    jest
+      .spyOn(api, 'fetchPokemon')
+      .mockImplementation(() => Promise.resolve(pokeApiDittoNormalizeFixture));
+
+    const response = await api.fetchPokemon('ditto');
 
     expect(response).toEqual(pokeApiDittoNormalizeFixture);
   });

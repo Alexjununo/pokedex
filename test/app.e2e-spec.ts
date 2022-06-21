@@ -1,7 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from './app.module';
+import { AppModule } from '../src/app.module';
+import pokeApiDittoNormalizeFixture from './fixtures/poke_api_ditto_normalize.json';
+console.log("🚀 ~ file: app.e2e-spec.ts ~ line 6 ~ pokeApiDittoNormalizeFixture", pokeApiDittoNormalizeFixture)
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -15,10 +17,10 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('/pokemons/:pokemon (GET)', () => {
     return request(app.getHttpServer())
-      .get('/')
+      .get('/pokemons/ditto')
       .expect(200)
-      .expect('Hello World!');
+      .expect(pokeApiDittoNormalizeFixture);
   });
 });

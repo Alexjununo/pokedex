@@ -9,7 +9,7 @@ export interface Species {
 }
 
 export interface Pokemon {
-    abilities: [Ability];
+    abilities: Ability[];
     height: number;
     weight: number;
     id: number;
