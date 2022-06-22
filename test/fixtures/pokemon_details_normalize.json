@@ -1,0 +1,10 @@
+{
+	"id": 132,
+	"name": "ditto",
+	"height": 3,
+	"weight": 40,
+	"base_experience": 48,
+	"location_area_encounters": "https://pokeapi.co/api/v2/pokemon/132/encounters",
+	"types": ["Poison"],
+	"abilities": ["imposter", "pressure", "synchronize"]
+}

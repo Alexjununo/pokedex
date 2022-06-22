@@ -1,19 +1,19 @@
-export interface Ability {
-    name: string;
-    url: string;
-}
-
-export interface Species {
-    name: string;
-    url: string;
-}
-
 export interface Pokemon {
-    abilities: Ability[];
-    height: number;
-    weight: number;
     id: number;
     name: string;
+    height: number;
+    weight: number;
+    base_experience: number;
     location_area_encounters: string;
-    species: Species
+    types: string[];
+    abilities: string[];
+}
+
+interface PokemonIdentifier {
+    id: string;
+    name: string;
+}
+
+export interface PokemonsList {
+    pokemons: PokemonIdentifier[];
 }

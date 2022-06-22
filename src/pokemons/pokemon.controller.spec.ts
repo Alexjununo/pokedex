@@ -2,7 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PokeApi } from '../clients/poke.client';
 import { PokemonController } from './pokemon.controller';
 import { PokemonService } from './pokemon.service';
-import pokeApiDittoNormalizeFixture from '../../test/fixtures/poke_api_ditto_normalize.json';
+import pokemonDetailsFixture from '../../test/fixtures/pokemon_details_normalize.json';
+import pokemonsListNormalize from '../../test/fixtures/pokemons_list_normalize.json'
 
 describe('AppController', () => {
   let pokemonController: PokemonController;
@@ -20,11 +21,22 @@ describe('AppController', () => {
   
   it('should return a Ditto json', async () => {
     jest
-      .spyOn(pokemonService, 'getPokemon')
-      .mockImplementation(() => Promise.resolve(pokeApiDittoNormalizeFixture));
+      .spyOn(pokemonService, 'getPokemonDetails')
+      .mockImplementation(() => Promise.resolve(pokemonDetailsFixture));
 
-    const response = await pokemonController.getPokemon('ditto');
+    const response = await pokemonController.getPokemonDetails({ pokemon: 'ditto' });
 
-    expect(response).toEqual(pokeApiDittoNormalizeFixture);
+    expect(response).toEqual(pokemonDetailsFixture);
+  });
+
+  // deve retornar uma lista de pokemons
+  it('should return a list of pokemons', async () => {
+    jest
+      .spyOn(pokemonService, 'getPokemons')
+      .mockImplementation(() => Promise.resolve(pokemonsListNormalize));
+
+    const response = await pokemonController.getPokemons();
+
+    expect(response).toEqual(pokemonsListNormalize);
   });
 });

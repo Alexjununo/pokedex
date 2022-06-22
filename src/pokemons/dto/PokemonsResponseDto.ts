@@ -1,46 +1,39 @@
 import { ApiProperty } from '@nestjs/swagger';
-
-class AbilityDto {
-    @ApiProperty({ description: 'Nome da habilidade', example: 'hydro-power' })
-    name: string;
-
-    @ApiProperty({ description: 'URL da habilidade', example: 'https://pokeapi.co/api/v2/ability/1' })
-    url: string;
-}
-
-class SpeciesDto {
-    @ApiProperty({ description: 'Nome da espécie', example: 'Ditto' })
-    name: string;
-
-    @ApiProperty({ description: 'URL da espécie', example: 'https://pokeapi.co/api/v2/pokemon-species/132/' })
-    url: string;
-}
-
-export class PokemonsResponseDto {
-    @ApiProperty({ description: 'Codigo do Pokemon', example: 10})
+export class PokemonDetailsResponseDto {
+    @ApiProperty({ description: 'Codigo do Pokemon', example: 10 })
     id: number;
 
-    @ApiProperty({ description: 'Altura do Pokemon', example: 120})
-    height: number;
-
-    @ApiProperty({ description: 'Peso do Pokemon', example: 5})
-    weight: number;
-
-    @ApiProperty({ description: 'Nome do Pokemon', example: 'Ditto'})
+    @ApiProperty({ description: 'Nome do Pokemon', example: 'Ditto' })
     name: string;
 
-    @ApiProperty({ description: 'Localização do Pokemon', example: 'Kanto'})
+    @ApiProperty({ description: 'Altura do Pokemon', example: 120 })
+    height: number;
+
+    @ApiProperty({ description: 'Peso do Pokemon', example: 5 })
+    weight: number;
+
+    @ApiProperty({ description: 'Experiencia base', example: 100 })
+    base_experience: number;
+
+    @ApiProperty({ description: 'Localização do Pokemon', example: 'Kanto' })
     location_area_encounters: string;
 
-    @ApiProperty({ description: 'Espécie do Pokemon', example: 'Ditto'})
-    species: SpeciesDto;
+    @ApiProperty({ description: 'Tipo de Pokemon', example: ['Poison'], isArray: true })
+    types: string[];
 
-    @ApiProperty({
-        description: 'Habilidades do Pokemon',
-        example: [
-            { name: 'Habilidade 1', url: 'https://pokeapi.co/api/v2/ability/1/' },
-            { name: 'Habilidade 2', url: 'https://pokeapi.co/api/v2/ability/2/' }
-        ]
-    })
-    abilities: AbilityDto[];
+    @ApiProperty({ description: 'Habilidades do Pokemon', example: ['Overgrow'], isArray: true })
+    abilities: string[];
+}
+
+class PokemonIdentifierDto {
+    @ApiProperty({ description: 'Codigo do Pokemon', example: '10' })
+    id: string;
+
+    @ApiProperty({ description: 'Nome do Pokemon', example: 'Ditto' })
+    name: string;
+}
+
+export class PokemonsListResponseDto {
+    @ApiProperty({ description: 'Lista de Pokemons', example: [{ id: '10', name: 'Ditto' }], isArray: true })
+    pokemons: PokemonIdentifierDto[];
 }

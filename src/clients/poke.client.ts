@@ -1,5 +1,5 @@
 import { InternalError } from '../utils/errors/internal-error';
-import { Pokemon } from '../pokemons/interfaces/pokemon.interface';
+import { Pokemon, PokemonsList } from '../pokemons/interfaces/pokemon.interface';
 import * as POKEUtil from '../utils/request';
 
 export class ClientRequestError extends InternalError {
@@ -23,16 +23,52 @@ export class PokeApi {
   private normalizeResponse (pokemon: any) {
     return {
       'id': pokemon.id,
+      'name': pokemon.name,
       'height': pokemon.height,
       'weight': pokemon.weight,
-      'name': pokemon.name,
+      'base_experience': pokemon.base_experience,
       'location_area_encounters': pokemon.location_area_encounters,
-      'species': pokemon.species,
-      'abilities': pokemon.abilities.map(({ ability }) => ability),
+      'types': pokemon.types.map(({ type }) => type.name),
+      'abilities': pokemon.abilities.map(({ ability }) => ability.name),
     };
   }
 
-  public async fetchPokemon(pokemon: string): Promise<Pokemon> {
+  private normalizeResponseList (pokemons: any) {
+    return {
+      'pokemons': pokemons.results.map(data => ({
+        id: data.url
+          .split('/')
+          .filter(part => !!part)
+          .pop(),
+        name: data.name
+      }))
+    }
+  }
+
+  public async fetchPokemons(offset: number, limit: number): Promise<PokemonsList> {
+    const LIMIT = 20;
+    const OFFSET = 0;
+
+    offset = offset || OFFSET;
+    limit = limit || LIMIT;
+
+    try {
+      const response: any = await this.request.get('/pokemon?limit=' + limit + '&offset=' + offset);
+
+      return this.normalizeResponseList(response.data);
+    } catch (error: any) {
+      if (POKEUtil.Request.isRequestError(error)) {
+        throw new PokeApiResponseError(
+          `Error: ${JSON.stringify(error.response.data)} Code: ${
+            error.response.status
+          }`,
+        );
+      }
+      throw new ClientRequestError(error.message);
+    }
+  }
+
+  public async fetchPokemonDetails(pokemon: string): Promise<Pokemon> {
     try {
       const response: any = await this.request.get(`/pokemon/${pokemon}`);
 

@@ -1,5 +1,5 @@
 import { PokeApi } from './poke.client';
-import pokeApiDittoNormalizeFixture from '../../test/fixtures/poke_api_ditto_normalize.json';
+import pokemonDetailsFixture from '../../test/fixtures/pokemon_details_normalize.json';
 import { Test, TestingModule } from '@nestjs/testing';
 
 jest.mock('../utils/request');
@@ -18,11 +18,11 @@ describe('PokeApi client', () => {
   it('should return the normalized pokemon Ditto from the Poke service', async () => {
 
     jest
-      .spyOn(api, 'fetchPokemon')
-      .mockImplementation(() => Promise.resolve(pokeApiDittoNormalizeFixture));
+      .spyOn(api, 'fetchPokemonDetails')
+      .mockImplementation(() => Promise.resolve(pokemonDetailsFixture));
 
-    const response = await api.fetchPokemon('ditto');
+    const response = await api.fetchPokemonDetails('ditto');
 
-    expect(response).toEqual(pokeApiDittoNormalizeFixture);
+    expect(response).toEqual(pokemonDetailsFixture);
   });
 });
