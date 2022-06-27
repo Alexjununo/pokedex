@@ -35,7 +35,7 @@ describe('AppController', () => {
       .spyOn(pokemonService, 'getPokemons')
       .mockImplementation(() => Promise.resolve(pokemonsListNormalize));
 
-    const response = await pokemonController.getPokemons();
+    const response = await pokemonController.getPokemons({ offset: 0, limit: 20 });
 
     expect(response).toEqual(pokemonsListNormalize);
   });
