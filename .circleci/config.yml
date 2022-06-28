@@ -29,12 +29,8 @@ jobs:
         
       # run tests!
       - run:
-          name: Create reports directory
-          command: mkdir ./reports/jest/
-      - run:
-          name: Run tests with JUnit as reporter
+          name: Run tests
           command: npm run test
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: ./reports/jest/
+
       - store_test_results:
           path: ./reports/jest/
