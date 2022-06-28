@@ -3,7 +3,8 @@ import { PokeApi } from '../clients/poke.client';
 import { PokemonController } from './pokemon.controller';
 import { PokemonService } from './pokemon.service';
 import pokemonDetailsFixture from '../../test/fixtures/pokemon_details_normalize.json';
-import pokemonsListNormalize from '../../test/fixtures/pokemons_list_normalize.json'
+import pokemonsListNormalize from '../../test/fixtures/pokemons_list_normalize.json';
+import regionsListNormalize from '../../test/fixtures/regions_list_normalize.json';
 
 describe('AppController', () => {
   let pokemonController: PokemonController;
@@ -29,7 +30,6 @@ describe('AppController', () => {
     expect(response).toEqual(pokemonDetailsFixture);
   });
 
-  // deve retornar uma lista de pokemons
   it('should return a list of pokemons', async () => {
     jest
       .spyOn(pokemonService, 'getPokemons')
@@ -39,4 +39,14 @@ describe('AppController', () => {
 
     expect(response).toEqual(pokemonsListNormalize);
   });
+
+  it('should return a list of region', async () => {
+    jest
+      .spyOn(pokemonService, 'getRegions')
+      .mockImplementation(() => Promise.resolve(regionsListNormalize));
+
+    const response = await pokemonController.getRegions();
+
+    expect(response).toEqual(regionsListNormalize);
+  })
 });

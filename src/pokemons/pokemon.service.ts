@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PokeApi } from '../clients/poke.client'
-import { Pokemon, PokemonsList } from './interfaces/pokemon.interface';
+import { Pokemon, PokemonsList, RegionsList } from './interfaces/pokemon.interface';
 
 @Injectable()
 export class PokemonService {
@@ -12,5 +12,9 @@ export class PokemonService {
 
     getPokemonDetails(pokemon: string): Promise<Pokemon> {
         return this.pokeApi.fetchPokemonDetails(pokemon);
+    }
+
+    getRegions(): Promise<RegionsList> {
+        return this.pokeApi.fetchRegions();
     }
 }

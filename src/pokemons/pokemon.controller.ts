@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { PokemonNameDto, PokemonPaginationListDto } from './dto/PokemonsRequestDto';
-import { PokemonDetailsResponseDto, PokemonsListResponseDto } from './dto/PokemonsResponseDto';
+import { PokemonDetailsResponseDto, PokemonsListResponseDto, RegionsListResponseDto } from './dto/PokemonsResponseDto';
 import { PokemonService } from './pokemon.service'
 
 @ApiTags('pokemons')
@@ -23,5 +23,11 @@ export class PokemonController {
   @Get(':pokemon')
   getPokemonDetails(@Param() param: PokemonNameDto): Promise<PokemonDetailsResponseDto> {
     return this.pokemonService.getPokemonDetails(param.pokemon);
+  }
+
+  @ApiOkResponse({ type: RegionsListResponseDto })
+  @Get('/regions')
+  getRegions(): Promise<RegionsListResponseDto> {
+    return this.pokemonService.getRegions();
   }
 }
