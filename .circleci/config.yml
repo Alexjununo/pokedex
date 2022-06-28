@@ -32,7 +32,7 @@ jobs:
             node -v
   Running-Linters:
     docker:
-      - image: cimg/node:17.2
+      - image: cimg/base:2021.04
     steps:
       - run:
           name: Running the Linter
@@ -40,7 +40,7 @@ jobs:
             npm run lint
   Running-Tests:
     docker:
-      - image: cimg/node:17.2
+      - image: cimg/base:2021.04
     steps:
       - run:
           name: Running the Tests
