@@ -1,81 +1,31 @@
+# Javascript Node CircleCI 2.0 configuration file
 version: 2.1
 jobs:
-  # running commands on a basic image
-  Hello-World:
+  build:
     docker:
-      - image: alpine:3.15
-    steps:
-      - run:
-          name: Saying Hello
-          command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
-  # fetching code from the repo
-  Fetch-Code:
-    docker:
-      - image: cimg/base:2021.04
-    steps:
-      - checkout
-      - run:
-          name: Getting the Code
-          command: |
-            ls -al
-            echo '^^^Your repo files^^^'
-  # running a node container
-  Using-Node:
-    docker:
-      - image: cimg/node:17.2
-    steps:
-      - run:
-          name: Running the Node Container
-          command: |
-            node -v
-  Running-Linters:
-    docker:
-      - image: cimg/base:2021.04
-    steps:
-      - checkout
-      - run:
-          name: Running the Linter
-          command: |
-            npm run lint
-  Running-Tests:
-    docker:
-      - image: cimg/base:2021.04
-    steps:
-      - checkout
-      - run:
-          name: Running the Tests
-          command: |
-            npm run test
-  Now-Complete:
-    docker:
-      - image: alpine:3.15
-    steps:
-      - run:
-          name: Delivery Complete
-          command: |
-            echo 'The work is now complete.'
+      - image: circleci/node:16.13
 
-workflows:
-  Example-Workflow:
-    jobs:
-      - Hello-World
-      - Fetch-Code:
-          requires:
-            - Hello-World
-      - Using-Node:
-          requires:
-            - Fetch-Code
-      - Running-Linters:
-          requires:
-            - Using-Node
-      - Running-Tests:
-          requires:
-            - Running-Linters
-      - Now-Complete:
-          requires:
-            - Using-Node
-            - Fetch-Code
-            - Running-Linters
-            - Running-Tests
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run linters!
+      - run: npm lint
+        
+      # run tests!
+      - run: npm test
