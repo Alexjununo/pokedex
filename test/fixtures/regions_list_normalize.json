@@ -1,0 +1,31 @@
+{
+    "regions": [
+        {
+            "name": "kanto"
+        },
+        {
+            "name": "johto"
+        },
+        {
+            "name": "hoenn"
+        },
+        {
+            "name": "sinnoh"
+        },
+        {
+            "name": "unova"
+        },
+        {
+            "name": "kalos"
+        },
+        {
+            "name": "alola"
+        },
+        {
+            "name": "galar"
+        },
+        {
+            "name": "hisui"
+        }
+    ]
+}

@@ -37,3 +37,13 @@ export class PokemonsListResponseDto {
     @ApiProperty({ description: 'Lista de Pokemons', example: [{ id: '10', name: 'Ditto' }], isArray: true })
     pokemons: PokemonIdentifierDto[];
 }
+
+class RegionDto {
+    @ApiProperty({ description: 'Nome da Região', example: 'Kanto' })
+    name: string;
+}
+
+export class RegionsListResponseDto {
+    @ApiProperty({ description: 'Lista de Regiões', example: [{ name: 'Kanto' }], isArray: true })
+    regions: RegionDto[];
+}

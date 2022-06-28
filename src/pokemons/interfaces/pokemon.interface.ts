@@ -17,3 +17,10 @@ interface PokemonIdentifier {
 export interface PokemonsList {
     pokemons: PokemonIdentifier[];
 }
+
+interface Region {
+    name: string;
+}
+export interface RegionsList {
+    regions: Region[];
+}
