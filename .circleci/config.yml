@@ -31,21 +31,13 @@ jobs:
           command: |
             node -v
   Running-Linters:
-    docker:
-      - image: cimg/base:2021.04
-    steps:
-      - run:
-          name: Running the Linter
-          command: |
-            npm run lint
+    - node/lint:
+        version: '16.10'
+        pkg-manager: npm
   Running-Tests:
-    docker:
-      - image: cimg/base:2021.04
-    steps:
-      - run:
-          name: Running the Tests
-          command: |
-            npm run test
+    - node/test:
+        version: '16.10'
+        pkg-manager: npm
   Now-Complete:
     docker:
       - image: alpine:3.15
