@@ -28,15 +28,13 @@ jobs:
       - run: npm run lint
         
       # run tests!
-      - run: npm run test
-
       - run:
-          name: Install JUnit coverage reporter
-          command: npm install -D jest-junit
+          name: Create reports directory
+          command: mkdir ./reports/jest/
       - run:
           name: Run tests with JUnit as reporter
-          command: jest --ci --runInBand --reporters=default --reporters=jest-junit
+          command: npm run test
           environment:
-            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+            JEST_JUNIT_OUTPUT_DIR: ./reports/jest/
       - store_test_results:
-          path: ./reports/junit/
+          path: ./reports/jest/
