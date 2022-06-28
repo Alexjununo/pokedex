@@ -31,14 +31,12 @@ jobs:
       - run: npm run test
 
       - run:
-          name: Save test results
-          command: |
-            mkdir -p ~/test-results/jest/
-            find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/test-results/jest/ \;
-          when: always
-
+          name: Install JUnit coverage reporter
+          command: npm install -D jest-junit
+      - run:
+          name: Run tests with JUnit as reporter
+          command: jest --ci --runInBand --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
       - store_test_results:
-        path: ~/test-results
-        
-      - store_artifacts:
-        path: ~/test-results/jest 
+          path: ./reports/junit/
